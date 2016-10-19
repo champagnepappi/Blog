@@ -30,5 +30,16 @@ class Blog < Sinatra::Base
     get "/#{article.slug}" do
       erb :post, :locals => { :article => article }
     end
+
+    #add articles to the list of article
+    articles << article
   end
+
+    #sort articles by date, display new articles first
+    articles.sort_by! { |article| article.date }
+    articles.reverse!
+
+    get '/' do
+      erb :index
+    end
 end
