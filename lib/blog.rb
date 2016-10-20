@@ -8,6 +8,7 @@ class Blog < Sinatra::Base
   #The generated path is treated as being
   #relative to that path
   set :root, File.expand_path('../../',_FILE_)
+  set :articles, []
 
   #loop through all the article files
   Dir.glob "#{root}/articles/*.md" do |file|
