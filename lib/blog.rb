@@ -1,16 +1,18 @@
 require 'sinatra/base' 
+require 'github_hook'
 require 'ostruct'
 require 'time'
 
 class Blog < Sinatra::Base
+  use GithubHook
   #File.expand_path generates an absolute path
   #Also takes a path as second argument
   #The generated path is treated as being
   #relative to that path
   set :root, File.expand_path('../../',_FILE_)
-  set :articles, []
+  set :articles, [] #loop through all the article files
+  set :app_file, _FILE_
 
-  #loop through all the article files
   Dir.glob "#{root}/articles/*.md" do |file|
     #parse meta data and contents from file
     meta, content = File.read(file).split("\n\n",2)
